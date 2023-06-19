@@ -1,0 +1,28 @@
+.template_unit:
+  extends:
+    - .job_rules_default
+  variables:
+    # Teach minitest to output information about the slowest tests
+    TESTOPTS: '--profile'
+  script:
+    - !reference [.scripts, zammad_db_init]
+    - bundle exec rake test:units
+    - bundle exec rails test test/integration/object_manager_test.rb
+
+unit:mysql:
+  stage: test
+  extends:
+    - .template_unit
+  services:
+    - !reference [.services, mysql]
+    - !reference [.services, redis]
+    - !reference [.services, memcached]
+
+unit:postgresql:
+  stage: test
+  extends:
+    - .template_unit
+  services:
+    - !reference [.services, postgresql]
+    - !reference [.services, redis]
+    - !reference [.services, memcached]

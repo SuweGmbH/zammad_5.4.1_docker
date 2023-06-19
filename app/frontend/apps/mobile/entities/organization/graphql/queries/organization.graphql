@@ -1,0 +1,31 @@
+query organization(
+  $organizationId: ID
+  $organizationInternalId: Int
+  $membersCount: Int
+) {
+  organization(
+    organization: {
+      organizationId: $organizationId
+      organizationInternalId: $organizationInternalId
+    }
+  ) {
+    members(first: $membersCount) {
+      edges {
+        node {
+          id
+          internalId
+          image
+          firstname
+          lastname
+          fullname
+          vip
+        }
+      }
+      totalCount
+    }
+    policy {
+      update
+    }
+    ...organizationAttributes
+  }
+}

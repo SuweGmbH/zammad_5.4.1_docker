@@ -1,0 +1,34 @@
+fragment userDetailAttributes on User {
+  id
+  internalId
+  firstname
+  lastname
+  fullname
+  image
+  email
+  web
+  vip
+  phone
+  mobile
+  fax
+  note
+  active
+  objectAttributeValues {
+    ...objectAttributeValues
+  }
+  organization {
+    id
+    internalId
+    name
+    active
+    ticketsCount {
+      open
+      closed
+    }
+  }
+  hasSecondaryOrganizations
+  ticketsCount {
+    open
+    closed
+  }
+}
